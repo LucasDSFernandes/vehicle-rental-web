@@ -1,0 +1,94 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8">
+                <h4>Adicionar carro</h4>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-primary float-right" [routerLink]="['/admin']">
+                    <i class="fa d-inline fa-lg fa-arrow-left"></i>
+                    Voltar
+                </a>
+            </div>
+        </div>
+        <form class="my-4" [formGroup]="formVehicle" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select class="form-control" formControlName="category" [disabled]="categories && categories.length === 0">
+                            <option>Selecione Categoria</option>
+                            <option [value]="category.id" *ngFor="let category of categories">{{category.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Marca</label>
+                        <select class="form-control" formControlName="manufacturer" [disabled]="manufacturers && manufacturers.length === 0" (change)="getModelsByForm($event)">
+                            <option>Selecione Marca</option>
+                            <option [value]="manufacturer.id" *ngFor="let manufacturer of manufacturers">{{manufacturer.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Modelo</label>
+                        <select class="form-control" formControlName="model" [disabled]="models && models.length === 0" (change)="getYearsAndFuelsByForm($event)">
+                            <option>Selecione Modelo</option>
+                            <option [value]="model.id" *ngFor="let model of models">{{model.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Ano e Combustível</label>
+                        <select class="form-control" formControlName="yearFuel" [disabled]="yearsFuels && yearsFuels.length === 0">
+                            <option>Selecione Ano e Combustível</option>
+                            <option [value]="yearFuel.id" *ngFor="let yearFuel of yearsFuels">{{yearFuel.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <fieldset class="border p-2">
+                        <legend class="w-auto">Valores Normais</legend>
+                        <div class="form-group">
+                            <label>Semana</label>
+                            <input class="form-control" type="number" formControlName="weekdayNormal" />
+                        </div>
+                        <div class="form-group">
+                            <label>Fim de Semana</label>
+                            <input class="form-control" type="number" formControlName="weekenddayNormal" />
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-6">
+                    <fieldset class="border p-2">
+                        <legend class="w-auto">Valores Fidelidade</legend>
+                        <div class="form-group">
+                            <label>Semana</label>
+                            <input class="form-control" type="number" formControlName="weekdayLoyalty" />
+                        </div>
+                        <div class="form-group">
+                            <label>Fim de Semana</label>
+                            <input class="form-control" type="number" formControlName="weekenddayLoyalty" />
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row my-4">
+                <div class="col-8"></div>
+                <div class="col-4">
+                    <button class="btn btn-primary btn-block h-100" type="submit">
+                        <i class="fa d-inline fa-lg fa-save"></i>
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

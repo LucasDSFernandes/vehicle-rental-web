@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="card-body">
+        <div class="search">
+            <form [formGroup]="formSearch" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Período</label>
+                            <div class="row">
+                                <div class="col-6">
+                                    <input class="form-control" type="date" formControlName="initialDate" placeholder="Data de Retirada">
+                                </div>
+                                <div class="col-6">
+                                    <input class="form-control" type="date" formControlName="endDate" placeholder="Data da Entrega">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Fidelidade</label>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input class="form-control" type="email" formControlName="email" placeholder="Informe seu e-mail">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-block h-100" type="submit">
+                            <i class="fa fa-search"></i>
+                            Pesquisar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="my-4" *ngIf="result !== undefined && result !== null">
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Categoria</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Ano</th>
+                        <th>Valor Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vehicle of result.vehicles">
+                        <td>{{vehicle.category.name}}</td>
+                        <td>{{vehicle.manufacturer.name}}</td>
+                        <td>{{vehicle.model.name}}</td>
+                        <td>{{vehicle.yearFuel.name}}</td>
+                        <td *ngIf="result.loyalty === true">
+                            <div><del>{{vehicle.totalNormal | currency:'BRL':true}}</del></div>
+                            <div>{{vehicle.totalLoyalty | currency:'BRL':true}}</div>
+                        </td>
+                        <td *ngIf="result.loyalty === false">
+                            <div>{{vehicle.totalNormal | currency:'BRL':true}}</div>
+                        </td>
+                        <td class="gd-button">
+                            <a (click)="confirmRegister(vehicle)"> <i class="fa d-inline fa-lg fa-crosshairs"></i> </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

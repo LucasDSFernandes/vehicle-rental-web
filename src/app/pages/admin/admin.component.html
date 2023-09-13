@@ -1,0 +1,56 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8">
+                <h4>Carros cadastrados</h4>
+            </div>
+            <div class="col-4">
+                <a class="btn btn-primary float-right" [routerLink]="['/admin/form']">
+                    <i class="fa d-inline fa-lg fa-plus"></i>
+                    Adicionar
+                </a>
+            </div>
+        </div>
+        <table class="table my-4">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th rowspan="2">Marca</th>
+                    <th rowspan="2">Modelo</th>
+                    <th rowspan="2">Ano</th>
+                    <th colspan="2">Valores</th>
+                    <th rowspan="2" class="gd-button"></th>
+                </tr>
+                <tr>
+                    <th>
+                        <select class="form-control" (change)="getVehiclesByCategory($event)">
+                            <option selected>Filtre</option>
+                            <option [value]="category.id" *ngFor="let category of categories">{{category.name}}</option>
+                        </select>
+                    </th>
+                    <th>Normal</th>
+                    <th>Fidelidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let vehicle of vehicles">
+                    <td>{{vehicle.category.name}}</td>
+                    <td>{{vehicle.manufacturer.name}}</td>
+                    <td>{{vehicle.model.name}}</td>
+                    <td>{{vehicle.yearFuel.name}}</td>
+                    <td>
+                        <div>Semana {{vehicle.weekdayNormal | currency:'BRL':true}}</div>
+                        <div>Fim Semana {{vehicle.weekenddayNormal | currency:'BRL':true}}</div>
+                    </td>
+                    <td>
+                        <div>Semana {{vehicle.weekdayLoyalty | currency:'BRL':true}}</div>
+                        <div>Fim Semana {{vehicle.weekenddayLoyalty | currency:'BRL':true}}</div>
+                    </td>
+                    <td class="gd-button">
+                        <a (click)="confirmDelete(vehicle)"> <i class="fa d-inline fa-lg fa-trash"></i> </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
